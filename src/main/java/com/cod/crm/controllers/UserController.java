@@ -1,6 +1,3 @@
-
-
-
 package com.cod.crm.controllers;
 
 import java.util.HashMap;
@@ -22,28 +19,31 @@ public class UserController {
 	private UsersMapper usersMapper;
 	
 	
-	@RequestMapping(value = "/api/custom/create", method = RequestMethod.POST)
-	    public  HashMap<String,String>  create(
-			)
-	    {
-
-		Users user=new User();
-		user.setUsername("tiff");
-		user.setPassword("tiff");
-		usersmappers.insertSelective(user);
+	
+	@RequestMapping(value = "/api/user/create", method = RequestMethod.GET)
+	public HashMap<String,String> create()
+    {
 		
+
 		
-	          //SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-	          //String date= df.format(new Date());
+		HashMap<String,String> response = new HashMap<String,String>();
+     
+		
+    Users user=new Users();
+	user.setUsername("tiff");
+	user.setPassword("tiff");
+	usersMapper.insertSelective(user);
+	
+	response.put("id",user.getId().toString());
+	
+	
 
-
-	        HashMap<String,String> response = new HashMap<String,String>();
-
-	         response.put("id",user.getId().toString());
-
-	         return response;
-	    }
-
+ 
+		
+		return response ; 
+	}
+	
+	
 
 }
 
