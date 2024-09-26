@@ -23,8 +23,10 @@ public class UserController {
 	
 	
 	
-	@RequestMapping(value = "/api/user/create", method = RequestMethod.GET)
-	public HashMap<String,String> create()
+	@RequestMapping(value = "/api/user/create", method = RequestMethod.POST)
+	public HashMap<String,String> create(
+			@RequestBody Users users
+			)
     {
 		
 
@@ -32,19 +34,59 @@ public class UserController {
 		HashMap<String,String> response = new HashMap<String,String>();
      
 		
-    Users user=new Users();
-	user.setUsername("tiff");
-	user.setPassword("tiff");
-	usersMapper.insertSelective(user);
-	
-	response.put("id",user.getId().toString());
-	
-	
+		// 确保用户名和密码不为空
+	    if (users.getUsername() == null || users.getPassword() == null) {
+	        response.put("error", "用户名和密码不能为空！");
+	        return response;
+	    }
 
- 
+		users.setCreatedAt(new Date());
+		users.setUpdatedAt(new Date());
 		
-		return response ; 
+//    Users user=new Users();
+//	user.setUsername("tiff");
+//	user.setPassword("tiff");
+		int result = usersMapper.insertSelective(users);
+	
+	if (result > 0) {
+        response.put("id", users.getId().toString());
+    } else {
+        response.put("error", "用户创建失败，请重试。");
+    }
+
+    return response;
+	
+	
 	}
+	
+	
+//    @RequestMapping(value = "/api/custom/create", method = RequestMethod.POST)
+//    public  Response<HashMap<String,String>>  create(
+//         @RequestBody Custom custom
+//         ) 
+//    {
+//
+//          //SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+//          //String date= df.format(new Date());
+//
+//          custom.setCreatedAt(new Date());
+//          custom.setUpdatedAt(new Date());
+//
+//         customMapper.insert(custom);
+//
+//         Response<HashMap<String,String>> response = new Response<HashMap<String,String>>();
+//
+//         response.data=new HashMap<String,String>();
+//         response.data.put("id",custom.getId().toString());
+//
+//         return response;
+//    }
+
+
+	
+	
+	
+	
 	
 	
 	
