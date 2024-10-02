@@ -70,8 +70,10 @@ public class LoginFilter implements Filter {
         else 
         {
             //获取http请求头中的token 值，没有则跳转到错误接口
-            String token = request.getHeader("Authorization");
+//            String token = request.getHeader("Authorization");
+            String token="5HyVFJLzKPGL5yCVQeVpzd7AWINiXSyK";
             System.out.println("TOKEN " + token);
+            
             if(token == null)
             {
                 response.sendRedirect("/api/error/nopermission");

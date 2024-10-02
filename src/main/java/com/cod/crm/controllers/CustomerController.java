@@ -88,11 +88,15 @@ public class CustomerController {
           PageInfo<Customers> pageInfo = new PageInfo<Customers>(userList);
 
           Response<PageInfo<Customers>> response=new Response<PageInfo<Customers>>();
+          
+          System.out.println(response);
 
 
           response.data=pageInfo;
 
           return response;
+          
+          
     }
 
  

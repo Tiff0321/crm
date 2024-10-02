@@ -61,9 +61,11 @@ public class LoginController  {
  
           List<Users> users  = usersMapper.selectByExample(usersExample);
           Users user=null;
+          
+//          Users user = new Users(); // 确保 user 被初始化
           if(users.size() > 0 )  user=users.get(0);
 
-          if(users == null )
+          if(user == null )
           {
                response.code="USER_NOT_EXISTS";
                response.message="用户不存在或者账号密码错误";
